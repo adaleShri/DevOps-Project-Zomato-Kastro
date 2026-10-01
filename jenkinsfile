@@ -56,16 +56,6 @@ pipeline {
                 }
             }
         }
-        stage('Docker Scout Image') {
-            steps {
-                script{
-                   withDockerRegistry(credentialsId: 'docker-creds', toolName: 'docker'){
-                       sh 'docker scout cves adaleshri/zomato:latest'
-                       sh 'docker scout recommendations adaleshri/zomato:latest'
-                   }
-                }
-            }
-        }
         stage ("Deploy to Container") {
             steps {
                 sh 'docker run -d --name zomato -p 3000:3000 kastrov/zomato:latest'
